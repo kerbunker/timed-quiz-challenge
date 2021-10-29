@@ -18,24 +18,28 @@
   </header>
 
   <main>
-      <div class="start-info" data-state="visible">
+      <div id="start-info" data-state="visible" style="display:block;">
           <h2>Coding Quiz Challenge</h2>
           <p>Try to answer the following code-related questions within the time limit.</p>
           <p>Keep in mind that incorrect answers will penalize your score/time by ten seconds!</p>
+          <button type="button" id="start-button">Start Quiz</button>
       </div>
-      <div class="quiz-question" data-state="hidden" style="display: none;">
-        <h1 class="question"></h1>
-        <ol class="options">
-          <li id="option1"></li>
-          <li id="option2"></li>
-          <li id="option3"></li>
-          <li id="option4"></li>
-        </ol>
+      <div class="quiz-question" data-state="hidden" style="display: none;" id="quiz-div">
+        <h1 class="question" id="quiz-question"></h1>
+        <ul class="options">
+          <li><button type="button" id="option1"></button></li>
+          <li><button type="button" id="option2"></button></li>
+          <li><button type="button" id="option3"></button></li>
+          <li><button type="button" id="option4"></button></li>
+        </ul>
       </div>
-      <div class="answer-status" data-state="hidden">
+      <div class="answer-status" data-state="hidden" style="display: none;">
         <h2 id="prev-answer"></h2>
       </div>
 
   </main>
+
+  <script src="./assets/js/script.js"></script>
+</body>
 
 </html>

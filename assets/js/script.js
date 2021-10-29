@@ -1,3 +1,11 @@
+var quizDiv = document.querySelector("#quiz-div");
+var quizQuest = document.querySelector("#quiz-question");
+var optionOne = document.querySelector("#option1");
+var optionTwo = document.querySelector("#option2");
+var optionThree = document.querySelector("#option3");
+var optionFour = document.querySelector("#option4");
+var currentQuestion = 0;
+var startButtonEl = document.querySelector("#start-button");
 // Array of question objects
 var questions = [
     {
@@ -28,3 +36,23 @@ var questions = [
         optionFour: "4. numbers"
     },
 ];
+
+var changeQuestion = function() {
+    quizQuest.textContent = questions[currentQuestion].question;
+    optionOne.textContent = questions[currentQuestion].optionOne;
+    optionTwo.textContent = questions[currentQuestion].optionTwo;
+    optionThree.textContent = questions[currentQuestion].optionThree;
+    optionFour.textContent = questions[currentQuestion].optionFour;
+}
+
+var startQuiz = function() {
+    var startDiv = document.getElementById("start-info");
+    console.log(startDiv);
+    startDiv.style.display = "none";
+    quizDiv.style.display = "block";
+
+    changeQuestion();
+    
+};
+
+startButtonEl.addEventListener("click", startQuiz);

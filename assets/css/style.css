@@ -1,0 +1,36 @@
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+main {
+    text-align: center;
+}
+
+button {
+    display: block;
+    justify-content: center;
+    width: 100px;
+    background-color: blueviolet;
+    color: white;
+    margin: 0 auto;
+
+}
+
+li {
+    list-style-type: none;
+    margin-top: 5px;
+}
+
+ul {
+    width: 500px;
+    margin: 0 auto;
+}
+
+.quiz-question button {
+    width: 200px;
+    height: 30px;
+    margin: 0;
+
+}
