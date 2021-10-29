@@ -18,11 +18,24 @@
   </header>
 
   <main>
-      <div>
+      <div class="start-info" data-state="visible">
           <h2>Coding Quiz Challenge</h2>
           <p>Try to answer the following code-related questions within the time limit.</p>
           <p>Keep in mind that incorrect answers will penalize your score/time by ten seconds!</p>
       </div>
+      <div class="quiz-question" data-state="hidden" style="display: none;">
+        <h1 class="question"></h1>
+        <ol class="options">
+          <li id="option1"></li>
+          <li id="option2"></li>
+          <li id="option3"></li>
+          <li id="option4"></li>
+        </ol>
+      </div>
+      <div class="answer-status" data-state="hidden">
+        <h2 id="prev-answer"></h2>
+      </div>
+
   </main>
 
 </html>
