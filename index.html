@@ -15,13 +15,13 @@
   </header>
 
   <main>
-      <div id="start-info" data-state="visible" style="display:block;">
+      <div id="start-info" style="display:block;">
           <h2>Coding Quiz Challenge</h2>
           <p>Try to answer the following code-related questions within the time limit.</p>
           <p>Keep in mind that incorrect answers will penalize your score/time by ten seconds!</p>
           <button type="button" id="start-button">Start Quiz</button>
       </div>
-      <div class="quiz-question" data-state="hidden" style="display: none;" id="quiz-div">
+      <div class="quiz-question" style="display: none;" id="quiz-div">
         <h1 class="question" id="quiz-question"></h1>
         <ul class="options" id="quest-options">
           <li><button type="button" id="option1"></button></li>
@@ -30,9 +30,15 @@
           <li><button type="button" id="option4"></button></li>
         </ul>
       </div>
-      <div class="answer-status" data-state="hidden" style="display: none;">
+      <div class="end-quiz" id="end-quiz" style="display: none;">
+        <h2>All Done!</h2>
+        <p id="final-score"></p>
+        <p>Enter initials: <input type="text" name="user-name"/></p>
+      </div>
+      <div class="answer-status" style="display: none;" id="answer-status">
         <h2 id="prev-answer"></h2>
       </div>
+      
 
   </main>
 

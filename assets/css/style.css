@@ -34,3 +34,9 @@ ul {
     margin: 0;
 
 }
+
+.answer-status {
+    border-top: solid gray 2px;
+    text-align: left;
+    margin-top: 10px;
+}
