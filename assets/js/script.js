@@ -6,12 +6,13 @@ var optionThree = document.querySelector("#option3");
 var optionFour = document.querySelector("#option4");
 var currentQuestion = 0;
 var startButtonEl = document.querySelector("#start-button");
+var questOptions = document.querySelector("#quest-options");
 // Array of question objects
 var questions = [
     {
         number: 1,
         question: "Commonly used data types Do Not include:",
-        answer: "3. alerts",
+        answer: "option3",
         optionOne: "1. strings",
         optionTwo: "2. booleans",
         optionThree: "3. alerts",
@@ -20,7 +21,7 @@ var questions = [
     {
         number: 2,
         question: "The condition in an if/else statement is enclosed with _____.",
-        answer: "3. parenthesis",
+        answer: "option3",
         optionOne: "1. quotes",
         optionTwo: "2. curly brackets",
         optionThree: "3. parenthesis",
@@ -45,6 +46,21 @@ var changeQuestion = function() {
     optionFour.textContent = questions[currentQuestion].optionFour;
 }
 
+var answerQuestion = function(event) {
+    var ansOption = event.target;
+    console.log(ansOption);
+    var ansID = ansOption.getAttribute('id');
+    var lastQuest = currentQuestion;
+    currentQuestion++;
+    var ansStatus;
+    if (ansID === questions[lastQuest].answer) {
+        ansStatus = "correct";
+    } else {
+        ansStatus = "wrong";
+    }
+
+}
+
 var startQuiz = function() {
     var startDiv = document.getElementById("start-info");
     console.log(startDiv);
@@ -52,7 +68,11 @@ var startQuiz = function() {
     quizDiv.style.display = "block";
 
     changeQuestion();
+
     
+     
 };
 
 startButtonEl.addEventListener("click", startQuiz);
+questOptions.addEventListener("click", answerQuestion);
+
