@@ -16,7 +16,7 @@ var timeLeft;
 var highScores = [];
 var highScoreEl = document.querySelector("#high-scores");
 
-var timeRemaining = 75;
+var timeRemaining = 60;
 
 //var quizTimer = setTimeout(endQuiz, 10000);
 // Array of question objects
@@ -89,13 +89,16 @@ var endQuiz = function() {
         highScores.sort(function(a, b){
             let x = a.score;
             let y = b.score;
-            if (x < y) {return -1;}
-            if (x > y) {return 1;}
+            if (x > y) {return -1;}
+            if (x < y) {return 1;}
             return 0;
         });
+        console.log(highScores);
         endDiv.style.display = "none";
         highScoreEl.style.display = "block";
+        saveHighScores();
         showHighScores();
+
 
     })
 
@@ -162,6 +165,10 @@ var loadHighScores = function() {
     
 };
 
+var saveHighScores = function() {
+    localStorage.setItem("scores", JSON.stringify(highScores));
+}
+
 var showHighScores = function() {
     if (highScores.length === 0) {
         return false;
@@ -188,7 +195,7 @@ var showHighScores = function() {
         scoreListEl.appendChild(scoreEl);
 
     }
-}
+};
 
 startButtonEl.addEventListener("click", startQuiz);
 questOptions.addEventListener("click", answerQuestion);
@@ -196,5 +203,5 @@ loadHighScores();
 
 
 // update styling
-// add high scores
+// add functionality for end game buttons
 // add timer for how long correct and wrong are on screen for?
