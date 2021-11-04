@@ -34,9 +34,22 @@
         <h2>All Done!</h2>
         <p id="final-score"></p>
         <p>Enter initials: <input type="text" name="user-name"/></p>
+        <button class="btn" id="submit" type="submit">Submit</button>
       </div>
       <div class="answer-status" style="display: none;" id="answer-status">
         <h2 id="prev-answer"></h2>
+      </div>
+
+      <div class="high-scores" style="display: none;" id="high-scores">
+        <h2>Scoreboard</h2>
+        <ul class="score-list" id="score-list">
+          <li><div><h3>Name</h3></div><div><h3>Score</h3></div></li>
+        </ul>
+        <div class="score-buttons">
+          <button class="btn" id="go-back" type="button">Go back</button>
+          <button class="btn" id="clear-scores" type="button">Clear high scores</button>
+        </div>
+        
       </div>
       
 
