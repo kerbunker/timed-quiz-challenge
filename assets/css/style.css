@@ -58,3 +58,7 @@ ul {
 .score-buttons button {
     margin: 0 10px;
 }
+
+.answer-status {
+    color: rgba(78, 76, 76, 0.7);
+}

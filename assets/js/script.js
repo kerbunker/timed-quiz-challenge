@@ -1,3 +1,4 @@
+var startDiv = document.getElementById("start-info");
 var quizDiv = document.querySelector("#quiz-div");
 var ansDiv = document.querySelector("#answer-status");
 var prevAns = document.querySelector("#prev-answer");
@@ -15,6 +16,8 @@ var quizTimer;
 var timeLeft;
 var highScores = [];
 var highScoreEl = document.querySelector("#high-scores");
+var scoreListEl = document.querySelector("#score-list");
+var scoreIdCounter = 0;
 
 var timeRemaining = 60;
 
@@ -73,11 +76,15 @@ var endQuiz = function() {
     quizDiv.style.display = "none";
     endDiv.style.display = "block";
     clearInterval(timeLeft);
+    clearTimeout(quizTimer);
     document.querySelector("#final-score").textContent = "Your final score is " + timeRemaining;
     
     
     document.querySelector("#submit").addEventListener("click", function() {
         var userName = document.querySelector("input[name='user-name']").value;
+        if(!userName) {
+            userName = "user name";
+        }
         //console.log(userName);
         var newScore = {
             name: userName,
@@ -96,13 +103,30 @@ var endQuiz = function() {
         console.log(highScores);
         endDiv.style.display = "none";
         highScoreEl.style.display = "block";
+        scoreListEl.style.display = "block";
         saveHighScores();
         showHighScores();
-
-
-    })
-
+    });
 };
+        
+document.querySelector("#clear-scores").addEventListener("click", function() {
+    highScores = [];
+    localStorage.clear();
+    scoreListEl.style.display = "none";
+    for (var i = 0; i < scoreIdCounter; i++) {
+        var currentScore = document.querySelector(".score-item[data-score-id='" + i + "']");
+        currentScore.remove();
+    }
+    scoreIdCounter = 0;
+});
+
+document.querySelector("#go-back").addEventListener("click", function() {
+    endDiv.style.display = "none";
+    startDiv.style.display = "block";
+    highScoreEl.style.display = "none";
+    //return;
+});
+
 
 var changeQuestion = function() {
     quizQuest.textContent = questions[currentQuestion].question;
@@ -114,14 +138,24 @@ var changeQuestion = function() {
 
 var answerQuestion = function(event) {
     var ansOption = event.target;
-    console.log(ansOption);
+    //console.log(ansOption);
     var ansID = ansOption.getAttribute('id');
     var lastQuest = currentQuestion;
     currentQuestion++;
+    var ansTimer;
     if (ansID === questions[lastQuest].answer) {
+        clearInterval(ansTimer);
         prevAns.textContent = "Correct!";
+        ansDiv.style.display = "block";
+        ansTimer = setTimeout(function() {
+            ansDiv.style.display = "none";
+        }, 5000);
     } else {
+        clearInterval(ansTimer);
         prevAns.textContent = "Wrong!";
+        ansTimer = setTimeout(function() {
+            ansDiv.style.display = "none";
+        }, 5000);
         timeRemaining = timeRemaining - 10;
         timer.textContent = "Time: " + timeRemaining;
         clearTimeout(quizTimer);
@@ -145,7 +179,8 @@ var updateTimer = function() {
 };
 
 var startQuiz = function() {
-    var startDiv = document.getElementById("start-info");
+    currentQuestion = 0;
+    timeRemaining = 60;
     quizTimer = setTimeout(endQuiz, 75000);
     console.log(startDiv);
     startDiv.style.display = "none";
@@ -167,32 +202,32 @@ var loadHighScores = function() {
 
 var saveHighScores = function() {
     localStorage.setItem("scores", JSON.stringify(highScores));
-}
+};
 
 var showHighScores = function() {
     if (highScores.length === 0) {
         return false;
     }
+    for (var i = 0; i < scoreIdCounter; i++) {
+        var currentScore = document.querySelector(".score-item[data-score-id='" + i + "']");
+        currentScore.remove();
+    }
+    scoreIdCounter = 0;
     var scoreListEl = document.querySelector("#score-list");
     for (var i = 0; i < highScores.length; i++) {
         var scoreEl = document.createElement("li");
         scoreEl.className = "score-item";
-        var scoreNameDiv = document.createElement("div");
-        var scoreNumDiv = document.createElement("div");
-        scoreEl.appendChild(scoreNameDiv);
-        scoreEl.appendChild(scoreNumDiv);
-        var scoreName = document.createElement("p");
-        scoreName.className = "score-name";
-        scoreName.textContent = highScores[i].name;
+        scoreEl.setAttribute("data-score-id", scoreIdCounter);
+        var scoreDivEl = document.createElement("div");
+        scoreEl.appendChild(scoreDivEl);
+        var score = document.createElement("p");
+        score.className = "score";
+        score.textContent = highScores[i].name + " - " + highScores[i].score;
 
-        scoreNameDiv.appendChild(scoreName);
-
-        var scoreNum = document.createElement("p");
-        scoreNum.className = "score-num";
-        scoreNum.textContent = highScores[i].score;
+        scoreDivEl.appendChild(score);
         
-        scoreNumDiv.appendChild(scoreNum);
         scoreListEl.appendChild(scoreEl);
+        scoreIdCounter++;
 
     }
 };
@@ -203,5 +238,3 @@ loadHighScores();
 
 
 // update styling
-// add functionality for end game buttons
-// add timer for how long correct and wrong are on screen for?
