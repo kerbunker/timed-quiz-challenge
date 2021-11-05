@@ -8,7 +8,7 @@ main {
     text-align: center;
 }
 
-button {
+#start-button {
     display: block;
     justify-content: center;
     width: 100px;
@@ -32,6 +32,7 @@ ul {
     width: 200px;
     height: 30px;
     margin: 0;
+    background-color: blueviolet;
 
 }
 
@@ -53,12 +54,19 @@ ul {
 .score-buttons {
     display: inline-flex;
     justify-content: center;
+    
 }
 
 .score-buttons button {
     margin: 0 10px;
+    background-color: blueviolet;
 }
 
 .answer-status {
     color: rgba(78, 76, 76, 0.7);
+    width: 750px;
+    margin: auto;
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
 }
