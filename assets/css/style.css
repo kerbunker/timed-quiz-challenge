@@ -70,3 +70,9 @@ ul {
     justify-content: center;
     margin-top: 10px;
 }
+
+#high-score-btn {
+    border: none;
+    color: blueviolet;
+    text-decoration: underline;
+}

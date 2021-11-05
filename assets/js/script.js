@@ -8,6 +8,7 @@ var optionOne = document.querySelector("#option1");
 var optionTwo = document.querySelector("#option2");
 var optionThree = document.querySelector("#option3");
 var optionFour = document.querySelector("#option4");
+var highScoreBtnEl = document.querySelector("#high-score-btn");
 var currentQuestion = 0;
 var startButtonEl = document.querySelector("#start-button");
 var questOptions = document.querySelector("#quest-options");
@@ -103,8 +104,6 @@ var submitHighScore = function() {
     });
     //console.log(highScores);
     endDiv.style.display = "none";
-    highScoreEl.style.display = "block";
-    scoreListEl.style.display = "block";
     saveHighScores();
     showHighScores();
 };
@@ -205,6 +204,7 @@ var saveHighScores = function() {
 };
 
 var showHighScores = function() {
+    startDiv.style.display = "none";
     if (highScores.length === 0) {
         return false;
     }
@@ -230,11 +230,14 @@ var showHighScores = function() {
         scoreIdCounter++;
 
     }
+    highScoreEl.style.display = "block";
+    scoreListEl.style.display = "block";
 };
 
 startButtonEl.addEventListener("click", startQuiz);
 questOptions.addEventListener("click", answerQuestion);
 submitBtn.addEventListener("click", submitHighScore);
+highScoreBtnEl.addEventListener("click", showHighScores);
 loadHighScores();
 
 
