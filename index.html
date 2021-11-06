@@ -7,53 +7,68 @@
     <link rel="stylesheet" href="./assets/css/style.css" />
     <title>Javascript Quiz</title>
   </head>
+
   <body>
-
+  <!-- Header section -->
   <header>
-      <button type="button" id="high-score-btn">View high scores</button>
-      <p id="timer">Time: 0</p>
+    <button type="button" id="high-score-btn">View high scores</button>
+    <p id="timer">Time: 0</p>
   </header>
+  <!-- End Header -->
 
+  <!-- Main section -->
   <main>
-      <div id="start-info" style="display:block;">
-          <h2>Coding Quiz Challenge</h2>
-          <p>Try to answer the following code-related questions within the time limit.</p>
-          <p>Keep in mind that incorrect answers will penalize your score/time by ten seconds!</p>
-          <button type="button" id="start-button">Start Quiz</button>
-      </div>
-      <div class="quiz-question" style="display: none;" id="quiz-div">
-        <h1 class="question" id="quiz-question"></h1>
-        <ul class="options" id="quest-options">
-          <li><button type="button" id="option1"></button></li>
-          <li><button type="button" id="option2"></button></li>
-          <li><button type="button" id="option3"></button></li>
-          <li><button type="button" id="option4"></button></li>
-        </ul>
-      </div>
-      <div class="end-quiz" id="end-quiz" style="display: none;">
-        <h2>All Done!</h2>
-        <p id="final-score"></p>
-        <p>Enter initials: <input type="text" name="user-name"/></p>
-        <button class="btn" id="submit" type="submit">Submit</button>
-      </div>
-      <div class="answer-status" style="display: none;" id="answer-status">
-        <h2 id="prev-answer"></h2>
-      </div>
+    <!-- Quiz Info Section-->
+    <section id="start-info" style="display:block;">
+      <h2>Coding Quiz Challenge</h2>
+      <p>Try to answer the following code-related questions within the time limit.</p>
+      <p>Keep in mind that incorrect answers will penalize your score/time by ten seconds!</p>
+      <button type="button" id="start-button">Start Quiz</button>
+    </section>
+    <!-- End Quiz Info Section-->
 
-      <div class="high-scores" style="display: none;" id="high-scores">
-        <h2>Scoreboard</h2>
-        <ol class="score-list" id="score-list">
-        </ol>
-        <div class="score-buttons">
-          <button class="btn" id="go-back" type="button">Go back</button>
-          <button class="btn" id="clear-scores" type="button">Clear high scores</button>
-        </div>
+    <!-- Quiz Questions -->
+    <section class="quiz-question" style="display: none;" id="quiz-div">
+      <h1 class="question" id="quiz-question"></h1>
+      <ul class="options" id="quest-options">
+        <li><button type="button" id="option1"></button></li>
+        <li><button type="button" id="option2"></button></li>
+        <li><button type="button" id="option3"></button></li>
+        <li><button type="button" id="option4"></button></li>
+      </ul>
+    </section>
+    <!-- End Quiz Questions Section -->
+
+    <!-- End Quiz Section -->
+    <section class="end-quiz" id="end-quiz" style="display: none;">
+      <h2>All Done!</h2>
+      <p id="final-score"></p>
+      <p>Enter initials: <input type="text" name="user-name"/></p>
+      <button class="btn" id="submit" type="submit">Submit</button>
+    </section>
+    <!-- End end quiz Section-->
+
+    <!-- Answer Status Section -->
+    <section class="answer-status" style="display: none;" id="answer-status">
+      <h2 id="prev-answer"></h2>
+    </section>
+    <!-- End Answer Status Section-->
+
+    <!-- High Scores Section-->
+    <section class="high-scores" style="display: none;" id="high-scores">
+      <h2>Scoreboard</h2>
+      <ol class="score-list" id="score-list">
+      </ol>
+      <div class="score-buttons">
+        <button class="btn" id="go-back" type="button">Go back</button>
+        <button class="btn" id="clear-scores" type="button">Clear high scores</button>
+      </div>
         
-      </div>
+    </section>
+    <!-- End High Scores Section -->
       
-
   </main>
-
+  <!-- End Main -->
   <script src="./assets/js/script.js"></script>
 </body>
 

@@ -1,9 +1,12 @@
+/* Header Styles */
 header {
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
+/* End header styles */
 
+/* Main Styles */
 main {
     text-align: center;
 }
@@ -28,6 +31,7 @@ ul {
     margin: 0 auto;
 }
 
+/* Quiz styles */
 .quiz-question button {
     width: 200px;
     height: 30px;
@@ -41,7 +45,22 @@ ul {
     text-align: left;
     margin-top: 10px;
 }
+.answer-status {
+    color: rgba(78, 76, 76, 0.7);
+    width: 750px;
+    margin: auto;
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+}
+/* End Quiz Styles */
 
+/* Score list Styles */
+#high-score-btn {
+    border: none;
+    color: blueviolet;
+    text-decoration: underline;
+}
 .score-list li {
     display: flex;
     justify-content: center;
@@ -61,18 +80,5 @@ ul {
     margin: 0 10px;
     background-color: blueviolet;
 }
-
-.answer-status {
-    color: rgba(78, 76, 76, 0.7);
-    width: 750px;
-    margin: auto;
-    display: flex;
-    justify-content: center;
-    margin-top: 10px;
-}
-
-#high-score-btn {
-    border: none;
-    color: blueviolet;
-    text-decoration: underline;
-}
+/* End Score List Styles */
+/* End Main section styles */

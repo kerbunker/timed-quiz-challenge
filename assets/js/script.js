@@ -1,29 +1,40 @@
+// Divs for displaying elements
 var startDiv = document.getElementById("start-info");
 var quizDiv = document.querySelector("#quiz-div");
 var ansDiv = document.querySelector("#answer-status");
 var prevAns = document.querySelector("#prev-answer");
 var endDiv = document.querySelector("#end-quiz");
-var quizQuest = document.querySelector("#quiz-question");
-var optionOne = document.querySelector("#option1");
-var optionTwo = document.querySelector("#option2");
-var optionThree = document.querySelector("#option3");
-var optionFour = document.querySelector("#option4");
-var highScoreBtnEl = document.querySelector("#high-score-btn");
-var currentQuestion = 0;
-var startButtonEl = document.querySelector("#start-button");
+
+// Div holding question options to listen for which is clicked
 var questOptions = document.querySelector("#quest-options");
-var timer = document.querySelector('#timer');
+
+
+// Btn to show high scores
+var highScoreBtnEl = document.querySelector("#high-score-btn");
+// Btn to start quiz
+var startButtonEl = document.querySelector("#start-button");
+// Btn to submit user name for scores
 var submitBtn = document.querySelector("#submit");
+
+// Stores which question is currently selected
+var currentQuestion = 0;
+
+// Element to show remaining time in quiz
+var timer = document.querySelector('#timer');
+// Stores timeout function timer
 var quizTimer;
+// Stores interval timer to keep track of time left in quiz
 var timeLeft;
+// Stores amount of time remaining in quiz
+var timeRemaining = 60;
+
+//Array holding high scores
 var highScores = [];
+// Elements used to show high score list
 var highScoreEl = document.querySelector("#high-scores");
 var scoreListEl = document.querySelector("#score-list");
 var scoreIdCounter = 0;
 
-var timeRemaining = 60;
-
-//var quizTimer = setTimeout(endQuiz, 10000);
 // Array of question objects
 var questions = [
     {
@@ -73,26 +84,33 @@ var questions = [
     }
 ];
 
+// Function called after all questions answered or when timer runs out
 var endQuiz = function() {
-    //console.log("endQuiz reached");
+    //hide questions and display end screen
     quizDiv.style.display = "none";
     endDiv.style.display = "block";
+    // clears remaining timers
     clearInterval(timeLeft);
     clearTimeout(quizTimer);
+    //shows the finaly score
     document.querySelector("#final-score").textContent = "Your final score is " + timeRemaining;
 };   
 
+// Called when user clicks submit button to submit high score
 var submitHighScore = function() {
+    // retrieves the username entered in text field
     var userName = document.querySelector("input[name='user-name']").value;
+    // if the user does not enter anything, fills in the user name with default user name
     if(!userName) {
         userName = "user name";
     }
-    //console.log(userName);
+    // creates an object for the score and the user name
     var newScore = {
         name: userName,
         score: timeRemaining
     };
-    //console.log(newScore);
+    
+    // Pushes the new score object onto array and then sorts array with the highest score first
     highScores = highScores || [];
     highScores.push(newScore);
     highScores.sort(function(a, b){
@@ -102,13 +120,17 @@ var submitHighScore = function() {
         if (x < y) {return 1;}
         return 0;
     });
-    //console.log(highScores);
+
+    // hides the endQuiz screen
     endDiv.style.display = "none";
+    //saves the high score array and calls the function to show the scores
     saveHighScores();
     showHighScores();
 };
         
+// Listens for the user to click the clear-scores btn 
 document.querySelector("#clear-scores").addEventListener("click", function() {
+    // clears high score data and hides and deletes displayed high score data
     highScores = [];
     localStorage.clear();
     scoreListEl.style.display = "none";
@@ -119,15 +141,25 @@ document.querySelector("#clear-scores").addEventListener("click", function() {
     scoreIdCounter = 0;
 });
 
+// Listens for the go back button to be clicked
 document.querySelector("#go-back").addEventListener("click", function() {
+    // resets to beginning of quiz
     endDiv.style.display = "none";
     startDiv.style.display = "block";
     highScoreEl.style.display = "none";
-    //return;
+    timer.textContent = "Time: " + 0;
 });
 
 
 var changeQuestion = function() {
+    // Quiz questions and answer option buttons
+    var quizQuest = document.querySelector("#quiz-question");
+    var optionOne = document.querySelector("#option1");
+    var optionTwo = document.querySelector("#option2");
+    var optionThree = document.querySelector("#option3");
+    var optionFour = document.querySelector("#option4");
+
+    // Adds the question and answer options to the relative elements
     quizQuest.textContent = questions[currentQuestion].question;
     optionOne.textContent = questions[currentQuestion].optionOne;
     optionTwo.textContent = questions[currentQuestion].optionTwo;
@@ -135,60 +167,88 @@ var changeQuestion = function() {
     optionFour.textContent = questions[currentQuestion].optionFour;
 };
 
+// function called when user clicks an answer option for quiz question
 var answerQuestion = function(event) {
+    // gets the target of the click
     var ansOption = event.target;
-    //console.log(ansOption);
+
+    // gets the ID of the element clicked
     var ansID = ansOption.getAttribute('id');
+    // sotres the just asked question and then increases the question to the next question in array
     var lastQuest = currentQuestion;
     currentQuestion++;
+    // timer for displaying "correct" or "wrong"
     var ansTimer;
+    // checks if user selected the correct option
     if (ansID === questions[lastQuest].answer) {
-        clearInterval(ansTimer);
+        // displays correct in the displayed ansDiv element
         prevAns.textContent = "Correct!";
         ansDiv.style.display = "block";
-        ansTimer = setTimeout(function() {
-            ansDiv.style.display = "none";
-        }, 5000);
-    } else {
+        
+        // resets ansTimer if need to from prev. question
         clearInterval(ansTimer);
-        prevAns.textContent = "Wrong!";
+        //sets the ansTimer to only display correct for 5 seconds
         ansTimer = setTimeout(function() {
             ansDiv.style.display = "none";
         }, 5000);
+    
+    } else {
+        //if answer was wrong - clears the timer if need from prev question
+        clearInterval(ansTimer);
+        //shows wrong to the user
+        prevAns.textContent = "Wrong!";
+        //sets timer to only display wrong for 5 seconds
+        ansTimer = setTimeout(function() {
+            ansDiv.style.display = "none";
+        }, 5000);
+        // decreases remaining quiz time by 10 seconds
         timeRemaining = timeRemaining - 10;
+        // shows updated time remaining to user
         timer.textContent = "Time: " + timeRemaining;
+        // clears the previous quiz timeout and reset it with new remaining time
         clearTimeout(quizTimer);
         quizTimer = setTimeout(endQuiz, timeRemaining * 1000);
 
     }
+    // displays the Div element to user
     ansDiv.style.display = "block";
+    // if there are questions remaining, calls function to display next question
     if (questions[currentQuestion]) {
         changeQuestion();
     } else {
-        clearTimeout(quizTimer);
+        // ends quiz if no questions remain
         endQuiz();
     }
     
 
 };
 
+// function called from time interval to update time remaining each second
 var updateTimer = function() {
     timeRemaining--;
     timer.textContent = "Time: " + timeRemaining;
 };
 
+// function called to start quiz when user clicks start quiz button
 var startQuiz = function() {
+    // resets if needed
     currentQuestion = 0;
     timeRemaining = 60;
+    timer.textContent = "Time: " + timeRemaining;
+    // sets quiz timer
     quizTimer = setTimeout(endQuiz, 75000);
-    console.log(startDiv);
+    // hides starting screen and shows quiz screen
     startDiv.style.display = "none";
     quizDiv.style.display = "block";
+    // shows time remaining
     timer.textContent = "Time: " + timeRemaining;
+    // sets interval timer to update time remaining each second
     timeLeft = setInterval(updateTimer, 1000);
+    // calls to change question
     changeQuestion();
 };
 
+// loads high score data from local storage
 var loadHighScores = function() {
     highScores = localStorage.getItem("scores");
 
@@ -199,20 +259,26 @@ var loadHighScores = function() {
     
 };
 
+// saves high score data to local storage
 var saveHighScores = function() {
     localStorage.setItem("scores", JSON.stringify(highScores));
 };
 
+// shows high scores to user
 var showHighScores = function() {
+    // hides start div if currently showing
     startDiv.style.display = "none";
+    // checks if there are high scores to show and exits function if there are none
     if (highScores.length === 0) {
         return false;
     }
+    // deletes any current li elements if there are any to prevent duplicates
     for (var i = 0; i < scoreIdCounter; i++) {
         var currentScore = document.querySelector(".score-item[data-score-id='" + i + "']");
         currentScore.remove();
     }
     scoreIdCounter = 0;
+    // creates list elements, adds the score and user name data from score objects in array and appends to list
     var scoreListEl = document.querySelector("#score-list");
     for (var j = 0; j < highScores.length; j++) {
         var scoreEl = document.createElement("li");
@@ -222,7 +288,7 @@ var showHighScores = function() {
         scoreEl.appendChild(scoreDivEl);
         var score = document.createElement("p");
         score.className = "score";
-        score.textContent = highScores[j].name + " - " + highScores[j].score;
+        score.textContent = (j + 1) + " - " + highScores[j].name + " - " + highScores[j].score;
 
         scoreDivEl.appendChild(score);
         
@@ -230,14 +296,17 @@ var showHighScores = function() {
         scoreIdCounter++;
 
     }
+    // shows the score divs 
     highScoreEl.style.display = "block";
     scoreListEl.style.display = "block";
 };
 
+// listeners for the buttons
 startButtonEl.addEventListener("click", startQuiz);
 questOptions.addEventListener("click", answerQuestion);
 submitBtn.addEventListener("click", submitHighScore);
 highScoreBtnEl.addEventListener("click", showHighScores);
+// calls load high scores on page load
 loadHighScores();
 
 
