@@ -104,6 +104,10 @@ var submitHighScore = function() {
     if(!userName) {
         userName = "user name";
     }
+    // keeps score from being negative
+    if (timeRemaining < 0) {
+        timeRemaining = 0;
+    }
     // creates an object for the score and the user name
     var newScore = {
         name: userName,
@@ -233,10 +237,10 @@ var updateTimer = function() {
 var startQuiz = function() {
     // resets if needed
     currentQuestion = 0;
-    timeRemaining = 60;
+    timeRemaining = 59;
     timer.textContent = "Time: " + timeRemaining;
     // sets quiz timer
-    quizTimer = setTimeout(endQuiz, 75000);
+    quizTimer = setTimeout(endQuiz, 60000);
     // hides starting screen and shows quiz screen
     startDiv.style.display = "none";
     quizDiv.style.display = "block";

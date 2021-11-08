@@ -26,9 +26,10 @@ li {
     margin-top: 5px;
 }
 
-ul {
-    width: 500px;
-    margin: 0 auto;
+.options {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
 /* Quiz styles */
